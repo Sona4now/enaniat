@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ملخص مادة صحافة الوسائط المتعددة</title>
+<style>
+  :root {
+    --primary: #534AB7;
+    --primary-light: #EEEDFE;
+    --primary-mid: #7F77DD;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --teal-mid: #1D9E75;
+    --coral: #993C1D;
+    --coral-light: #FAECE7;
+    --amber: #854F0B;
+    --amber-light: #FAEEDA;
+    --amber-mid: #EF9F27;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --gray: #444441;
+    --gray-light: #F1EFE8;
+    --text: #2C2C2A;
+    --text-muted: #888780;
+    --bg: #ffffff;
+    --border: #D3D1C7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: #f8f7f2; color: var(--text); font-size: 15px; line-height: 1.7; }
+  
+  /* Header */
+  .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 60%, #AFA9EC 100%); color: white; padding: 40px 20px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .hero p { opacity: 0.9; font-size: 16px; }
+  .hero .badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 20px; padding: 4px 16px; font-size: 13px; margin-top: 12px; }
+
+  /* Nav */
+  .nav { background: white; border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .nav-btn { background: var(--gray-light); border: none; border-radius: 20px; padding: 6px 16px; font-size: 13px; cursor: pointer; color: var(--text); transition: all 0.2s; font-family: inherit; }
+  .nav-btn:hover, .nav-btn.active { background: var(--primary); color: white; }
+
+  /* Container */
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  /* Section */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Cards */
+  .card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 20px; }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--primary-light); }
+  .card-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .card-title { font-size: 18px; font-weight: 600; color: var(--primary); }
+  .card-sub { font-size: 13px; color: var(--text-muted); }
+
+  /* Lecture colors */
+  .lec1 .card-icon { background: var(--primary-light); }
+  .lec2 .card-icon { background: var(--teal-light); }
+  .lec3 .card-icon { background: var(--amber-light); }
+  .lec4 .card-icon { background: var(--blue-light); }
+  .lec5 .card-icon { background: var(--green-light); }
+
+  /* Topics */
+  .topic { background: var(--gray-light); border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; border-right: 4px solid var(--primary); }
+  .topic h3 { font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+  .topic ul { padding-right: 20px; }
+  .topic ul li { margin-bottom: 5px; font-size: 14px; }
+  .lec2 .topic { border-right-color: var(--teal); }
+  .lec2 .topic h3 { color: var(--teal); }
+  .lec3 .topic { border-right-color: var(--amber); }
+  .lec3 .topic h3 { color: var(--amber); }
+  .lec4 .topic { border-right-color: var(--blue); }
+  .lec4 .topic h3 { color: var(--blue); }
+  .lec5 .topic { border-right-color: var(--green); }
+  .lec5 .topic h3 { color: var(--green); }
+
+  /* Key points */
+  .key-box { background: var(--primary-light); border: 1px solid #AFA9EC; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; font-size: 14px; }
+  .key-box strong { color: var(--primary); }
+
+  /* Mind map */
+  .mindmap-container { width: 100%; overflow-x: auto; }
+  .mindmap-container svg { display: block; margin: 0 auto; }
+
+  /* Q&A */
+  .question-grid { display: grid; gap: 14px; }
+  .q-item { background: white; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; }
+  .q-header { display: flex; align-items: flex-start; gap: 12px; padding: 16px; cursor: pointer; }
+  .q-num { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+  .q-true .q-num { background: var(--green-light); color: var(--green); }
+  .q-false .q-num { background: var(--red-light); color: var(--red); }
+  .q-text { font-size: 14px; flex: 1; padding-top: 6px; }
+  .q-answer { background: var(--gray-light); padding: 14px 16px; border-top: 1px solid var(--border); display: none; }
+  .q-answer.show { display: block; }
+  .q-answer .verdict { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .q-true .verdict { color: var(--green); }
+  .q-false .verdict { color: var(--red); }
+  .q-answer .explain { font-size: 13px; color: #444; line-height: 1.6; }
+  .q-toggle { margin-left: auto; width: 28px; height: 28px; border-radius: 50%; background: var(--gray-light); border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.2s; }
+  .q-toggle.open { transform: rotate(180deg); }
+
+  /* Score */
+  .score-bar { background: var(--gray-light); border-radius: 10px; padding: 20px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+  .score-stat { text-align: center; }
+  .score-stat .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+  .score-stat .label { font-size: 12px; color: var(--text-muted); }
+  .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filter-btn { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* Connection diagram */
+  .connection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 20px 0; }
+  .conn-card { border-radius: 10px; padding: 14px; text-align: center; border: 2px solid transparent; cursor: pointer; transition: all 0.2s; }
+  .conn-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .conn-card .emoji { font-size: 28px; }
+  .conn-card h4 { font-size: 13px; font-weight: 600; margin-top: 8px; }
+
+  /* Tags */
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; margin: 2px; font-weight: 500; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 22px; }
+    .card { padding: 16px; }
+    .nav-btn { font-size: 12px; padding: 5px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>📚 مادة صحافة الوسائط المتعددة</h1>
+  <p>د/ الزهراء رشاد — ملخص شامل للمذاكرة</p>
+  <div class="badge">٥ محاضرات | خرائط ذهنية | ١٠٠ سؤال صح وخطأ</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showSection('summary')">📝 الملخصات</button>
+  <button class="nav-btn" onclick="showSection('links')">🔗 ربط المنهج</button>
+  <button class="nav-btn" onclick="showSection('mindmap')">🧠 خرائط ذهنية</button>
+  <button class="nav-btn" onclick="showSection('quiz')">✅ أسئلة صح وخطأ</button>
+</div>
+
+<div class="container">
+
+<!-- ========== SUMMARY ========== -->
+<div id="summary" class="section active">
+
+  <!-- LEC 1 -->
+  <div class="card lec1">
+    <div class="card-header">
+      <div class="card-icon">🏗️</div>
+      <div>
+        <div class="card-title">المحاضرة الأولى: صناعة المحتوى الإخباري في العصر الرقمي</div>
+        <div class="card-sub">أدوار الصحفيين في غرف الأخبار الرقمية وقواعد الكتابة</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>👥 صناع المحتوى الإخباري الرقمي</h3>
+      <ul>
+        <li><strong>المحرر (Editor/Journalist):</strong> أنواع متعددة — رياضي، سياسي، حوادث، فن، lifestyle</li>
+        <li><strong>المصور:</strong> يختلف عن المصور الورقي — يصور مناسبات كبيرة، احتفالات، مراسم رسمية</li>
+        <li><strong>صحفي الفيديو:</strong> شخصية مهمة جداً — يصنع تقارير إخبارية وبث مباشر</li>
+        <li><strong>الناشر:</strong> يتحكم في ما يُنشر وفق السياسة التحريرية والمعايير الأخلاقية</li>
+        <li><strong>المصحح اللغوي:</strong> يضمن خلو المحتوى من الأخطاء اللغوية</li>
+        <li><strong>محرر السوشيال ميديا:</strong> يدرس المنافسين، يحلل الترندات، يشارك في الاجتماع اليومي</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>📊 أداة ChartBeat</h3>
+      <ul>
+        <li>خدمة تشترك فيها المواقع الكبيرة لمعرفة مؤشرات المحتوى</li>
+        <li>تُخبر بعدد القراء الحاليين، المدة التي يقضيها المستخدم داخل المحتوى</li>
+        <li>تُعادل خدمة أرقام مبيعات الصحف في الإعلام التقليدي</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>✍️ قواعد الكتابة الرقمية</h3>
+      <ul>
+        <li><strong>اعرف قراءك:</strong> الاحتياجات، الثقافة، الاهتمامات، المستوى الاجتماعي، السن</li>
+        <li><strong>فكر مثل الناشرين:</strong> هل يستحق النشر في الصفحة الرئيسية؟ ما الصورة المناسبة؟</li>
+        <li><strong>اكتب قصيراً وبسيطاً:</strong> جمهورك يشعر بالملل — استخدم أسلوب بسيط</li>
+        <li><strong>مضمون فعّال:</strong> محتوى مفيد (تعليم، صحة، نبذ العنف، مشاركة سياسية)</li>
+        <li><strong>Hyperlinks:</strong> ضع روابط للاشتراك في حملات أو أخبار ذات صلة</li>
+        <li><strong>اكتب ما يبحث عنه القراء:</strong> كلمات البحث، الهاشتاج، Google Trends</li>
+        <li><strong>عنوان قصير جذاب:</strong> 5–7 كلمات تبدأ بـ "حصري - انفراد - خاص - تفاصيل - سر"</li>
+      </ul>
+    </div>
+
+    <div class="key-box">
+      <strong>💡 الفكرة الجوهرية:</strong> غرفة الأخبار الرقمية تجمع أدواراً متعددة متكاملة — كل دور له مهمة محددة، والنجاح يعتمد على التنسيق الكامل بينهم مع فهم عميق للجمهور الرقمي.
+    </div>
+  </div>
+
+  <!-- LEC 2 -->
+  <div class="card lec2">
+    <div class="card-header">
+      <div class="card-icon">🖼️</div>
+      <div>
+        <div class="card-title">المحاضرة الثانية: القصص الصحفية التفاعلية والمصورة</div>
+        <div class="card-sub">الصحافة التصويرية والقصص الرقمية التفاعلية</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>📸 الصحافة التصويرية (القصة المصورة)</h3>
+      <ul>
+        <li><strong>التعريف:</strong> فرع من الصحافة تُستخدم فيه الصور الفوتوغرافية لسرد القصص الإخبارية</li>
+        <li><strong>اخترعها:</strong> رودولف توبفر (سويسري) في أوائل القرن التاسع عشر</li>
+        <li><strong>الهدف الأساسي:</strong> التقاط ونقل اللحظات والقصص المهمة بدقة ومصداقية</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🎯 عناصر القصة المصورة الناجحة</h3>
+      <ul>
+        <li><strong>التوقيت:</strong> الصورة لا تملك رفاهية التكرار — لحظة خاطفة لا تعود (مثال: "رجل الدبابة" 1989)</li>
+        <li><strong>الصدق البصري:</strong> لا تُجمّل ولا تُحرّف — الحقيقة كما هي (مثال: صورة آلان كردي 2015)</li>
+        <li><strong>السرد البصري:</strong> الصورة تفتح باباً للتأمل — تختصر المشهد وتُلمح لما وراءه</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🎯 أهداف القصة الصحفية المصورة (10 أهداف)</h3>
+      <ul>
+        <li>إعلام الجمهور | توثيق التاريخ | زيادة الوعي | إثارة المشاعر</li>
+        <li>إعطاء الصوت لمن لا صوت لهم | تعزيز رواية القصة | توضيح القضايا المعقدة</li>
+        <li>نقل المعلومات بوضوح | تعزيز التفاعل الرقمي | إضافة المصداقية</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>💻 القصص الرقمية التفاعلية</h3>
+      <ul>
+        <li><strong>التعريف:</strong> محتوى يجمع النصوص والوسائط المتعددة مع إمكانية التفاعل</li>
+        <li><strong>العناصر:</strong> نصوص تفاعلية | صور وفيديو تفاعلي | إنفوجرافيك | خرائط تفاعلية | خيارات تفاعلية | صوت</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>📂 أنواع القصص التفاعلية</h3>
+      <ul>
+        <li><strong>Real-time interactive:</strong> تغطية أحداث حية بتحديث مستمر</li>
+        <li><strong>Data-driven:</strong> دمج بيانات معقدة في قالب تفاعلي</li>
+        <li><strong>Branching paths:</strong> القارئ يختار مسار القصة</li>
+        <li><strong>Guided stories:</strong> مسار ثابت مع لحظات تفاعلية</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🛠️ أدوات إنشاء القصص التفاعلية</h3>
+      <ul>
+        <li><strong>Shorthand:</strong> إنشاء قصص صحفية تفاعلية بسهولة</li>
+        <li><strong>StoryMapJS:</strong> خرائط تفاعلية مع نصوص وصور</li>
+        <li><strong>Knight Lab's Juxtapose:</strong> مقارنات قبل/بعد</li>
+        <li><strong>Adobe Animate + HTML5:</strong> محتوى تفاعلي مخصص</li>
+        <li><strong>Tableau:</strong> عرض بيانات تفاعلية</li>
+      </ul>
+    </div>
+
+    <div class="key-box">
+      <strong>💡 الفكرة الجوهرية:</strong> الصورة الصحفية ليست مجرد زينة للنص — بل هي رواية بصرية تكتفي بنفسها. أما القصص التفاعلية فتُشرك القارئ ويصبح جزءاً من التجربة الإعلامية.
+    </div>
+  </div>
+
+  <!-- LEC 3 -->
+  <div class="card lec3">
+    <div class="card-header">
+      <div class="card-icon">📰</div>
+      <div>
+        <div class="card-title">المحاضرة الثالثة: القوالب الخبرية للمنصات الإلكترونية</div>
+        <div class="card-sub">الأخبار العاجلة | الرسائل القصيرة | الفيتشر</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>⚡ أولاً: الأخبار العاجلة (Breaking News)</h3>
+      <ul>
+        <li>تقف على النقيض من الأخبار التقليدية — تنقل أحداثاً مفاجئة عالية القيمة الإخبارية</li>
+        <li>القراء يتذكرونها أكثر من التقليدية، خاصة إذا تناولت تهديدات قريبة</li>
+        <li>تُدعم المكانة التنافسية للوسيلة الإعلامية</li>
+        <li>تويتر (X) أصبح المنصة الأساسية لنشر الأخبار العاجلة (نشأ 2006)</li>
+        <li><strong>طرق توصيل العاجل:</strong> اشتراك تويتر | البريد الإلكتروني | الهاتف المحمول</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>📱 ثانياً: الرسائل الإخبارية القصيرة (SMS)</h3>
+      <ul>
+        <li><strong>معايير الاختيار:</strong>
+          <ul>
+            <li>أخبار تحمل تهديداً (خاصة صحية)</li>
+            <li>أخبار تحمل فائدة (زيادة دخل، فوائد)</li>
+            <li>أخبار تحمل مغارم (ارتفاع أسعار، ضرائب)</li>
+            <li>أخبار ذات اهتمامات شخصية</li>
+          </ul>
+        </li>
+        <li><strong>معايير الصياغة:</strong>
+          <ul>
+            <li><strong>أ. الاختصار:</strong> لا يزيد عن 10 كلمات / 70–160 حرف</li>
+            <li><strong>ب. الدقة في الأرقام:</strong> تجنب التضارب والإساءة في التفسير</li>
+            <li><strong>ج. تجنب المفردات الغامضة:</strong> لغة واضحة خالية من التشويش</li>
+            <li><strong>د. تجنب العامية:</strong> فصحى سهلة بسيطة</li>
+            <li><strong>هـ. تضمين جهة الاتصال</strong></li>
+            <li><strong>و. الدقة اللغوية</strong></li>
+            <li><strong>ز. الشخصنة:</strong> أسماء مشهورة وأماكن ذات قيمة نفسية</li>
+          </ul>
+        </li>
+        <li><strong>التنويع:</strong> 3–5 رسائل يومياً مع توزيع متوازن على فترات اليوم</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>✨ ثالثاً: قالب الفيتشر الخبري</h3>
+      <ul>
+        <li>مادة تفصيلية تستكشف الزوايا الإنسانية في القضايا والأحداث</li>
+        <li><strong>أنواع جوهر الفيتشر:</strong> قصة رأي | قصة شخص (Profile) | قصة إنسانية | قصة خلفية | قصة تجربة</li>
+        <li><strong>البناء الفني:</strong> عنوان + مقدمة + تفاصيل</li>
+        <li><strong>مميزات عنوان الفيتشر:</strong>
+          <ul>
+            <li>إبراز النبرة الذاتية والسرد غير الرسمي</li>
+            <li>كشف المفارقات وتناقضات الحياة</li>
+            <li>اللغة المجازية والكلمات العاطفية</li>
+            <li>الاقتباسات المباشرة لشخصنة الموضوع</li>
+          </ul>
+        </li>
+        <li><strong>وظائف المقدمة:</strong> تشويق القارئ، تقديم فكرة العمق، التمهيد للموضوع</li>
+      </ul>
+    </div>
+
+    <div class="key-box">
+      <strong>💡 الفكرة الجوهرية:</strong> المنصات الإلكترونية أفرزت قوالب جديدة تختلف جذرياً عن الإعلام التقليدي — فالسرعة في العاجل، والإيجاز في SMS، والعمق الإنساني في الفيتشر.
+    </div>
+  </div>
+
+  <!-- LEC 4 -->
+  <div class="card lec4">
+    <div class="card-header">
+      <div class="card-icon">📱</div>
+      <div>
+        <div class="card-title">المحاضرة الرابعة: معالجة وتحرير المحتوى على التواصل الاجتماعي</div>
+        <div class="card-sub">محرر التواصل | معايير الانتقاء | الخوارزميات | الميتافيرس</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>👤 محرر منصات التواصل الاجتماعي</h3>
+      <ul>
+        <li><strong>التعريف:</strong> صحفي يُعدّ المادة الصحفية لمتابعي حسابات الصحيفة على التواصل</li>
+        <li><strong>الوظيفتان الأساسيتان:</strong>
+          <ul>
+            <li>إعادة إنتاج محتوى منصات الصحيفة الأخرى بأسلوب مناسب</li>
+            <li>صناعة محتوى خبري خاص بالمنصة (متابعة التغريدات، إنتاج فيديو)</li>
+          </ul>
+        </li>
+        <li>يجب أن يكون <strong>أشد حدة وتوهجاً</strong> من المحرر التقليدي</li>
+        <li>متابع للترندات اليومية وقادر على إنتاج محتوى قابل للتداول</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>📋 معايير انتقاء الأخبار على التواصل</h3>
+      <ul>
+        <li><strong>الأخبار الجماهيرية:</strong> تهم نسبة كبيرة — منافسة، صراع، نجوم، إنسانية</li>
+        <li><strong>موافقة ترند المنصة:</strong> اقتناص الترند والبقاء فيه أطول وقت</li>
+        <li><strong>الأنسب للمنصة:</strong> فيديو+صور لإنستجرام، مفصّل لفيسبوك، موجز لتويتر</li>
+        <li><strong>ذات القيمة الشخصية:</strong> تعكس انتماءات وتوجهات مجموعات المستخدمين</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>📝 القوالب الفنية على التواصل</h3>
+      <ul>
+        <li><strong>الخبر المغلق على الحساب:</strong> يُطالع المتابع المحتوى كاملاً دون العودة للموقع</li>
+        <li><strong>الخبر المفتوح على الموقع:</strong> عنوان/مقدمة تجذب المتابع للدخول للموقع</li>
+        <li><strong>قالب المدونة:</strong> تكثيف المعلومات + القدرة على التقاط المعلومة الأهم</li>
+        <li><strong>قالب خبر الفيديو:</strong> الأنسب للتحولات الحديثة — كل المنصات تستخدمه</li>
+        <li><strong>قالب ألبوم الصور:</strong> صور متماسكة مع عنوان إشاري</li>
+        <li><strong>قالب التقرير النصي/القصير</strong></li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🤖 الخوارزميات والذكاء الاصطناعي</h3>
+      <ul>
+        <li>تُحلل ملفات المستخدمين وشبكة اهتماماتهم وتفضيلاتهم</li>
+        <li>تختار الأخبار المرشحة للنشر بناءً على البيانات السلوكية</li>
+        <li>تُحدد ما يظهر للمستخدم بناءً على سلوكه السابق</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🌐 الميتافيرس في الصحافة</h3>
+      <ul>
+        <li>يطور أساليب تقديم المحتوى الخبري بشكل جذري</li>
+        <li>يجعل المتلقي جزءاً من الحدث وليس مجرد متلقٍ</li>
+        <li>تجارب غامرة (Immersive) تتجاوز المحتوى الثنائي الأبعاد</li>
+      </ul>
+    </div>
+
+    <div class="key-box">
+      <strong>💡 الفكرة الجوهرية:</strong> التواصل الاجتماعي ليس مجرد قناة توزيع — بل بيئة صحفية مستقلة لها قواعدها الخاصة في الاختيار والتحرير والتقديم.
+    </div>
+  </div>
+
+  <!-- LEC 5 -->
+  <div class="card lec5">
+    <div class="card-header">
+      <div class="card-icon">🌐</div>
+      <div>
+        <div class="card-title">المحاضرة الخامسة: تصميم المواقع الإلكترونية</div>
+        <div class="card-sub">خطوات إنشاء الموقع | أهم الصفحات | مراحل التصميم</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>🖥️ ما هو الموقع الإلكتروني؟</h3>
+      <ul>
+        <li>مجموعة من الصفحات أو الملفات المتعلقة بكيان أو موضوع ذات صلة</li>
+        <li>يحتاج: ملفات + استضافة (تحمي وتخزن الملفات) + اسم نطاق</li>
+        <li>مجموع المواقع يُشكّل شبكة الويب العالمية (WWW)</li>
+        <li>~4.54 مليار شخص يستخدمون الإنترنت يومياً</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>📄 أهم 4 صفحات في كل موقع</h3>
+      <ul>
+        <li><strong>الصفحة الرئيسية:</strong> واجهة الموقع — تجذب أو تُنفّر — عنوان جذاب، عوامل بصرية، محتوى مكثف</li>
+        <li><strong>صفحة "من نحن":</strong> تعبر عن هوية المؤسسة وما تقدمه للمتلقي</li>
+        <li><strong>صفحة التواصل:</strong> يد ممدودة للعملاء — بريد + هاتف + عنوان + دعوة للتفاعل</li>
+        <li><strong>صفحة الخدمات:</strong> عرض مختصر لكل خدمة بوضوح ودون تعقيد</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🗺️ مراحل تصميم الموقع (قبل البدء)</h3>
+      <ul>
+        <li><strong>التحليل:</strong> دراسة المحيط التجاري، المنافسين، الجمهور، التفضيلات</li>
+        <li><strong>تحديد الأهداف:</strong> ما هو الهدف؟ من الجمهور المستهدف؟ تفاعلي أم تجاري؟</li>
+        <li><strong>التخطيط:</strong> مخطط تفصيلي وخريطة للموقع ومراحل التصميم</li>
+        <li><strong>اختيار طريقة التصميم:</strong> CMS, لغات برمجة, منصة متخصصة</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <h3>🎨 تحسين صفحات الموقع</h3>
+      <ul>
+        <li><strong>الصفحة الرئيسية:</strong> عناوين جذابة، نصوص تدعو للتفاعل (CTA)، عوامل بصرية جذابة</li>
+        <li><strong>صفحة التواصل:</strong> بيانات واضحة + أسلوب جذاب يحفز الاتصال</li>
+        <li><strong>استجابة على كل المنصات (Responsive Design)</strong></li>
+        <li><strong>هندسة الصفحة:</strong> بدون أخطاء أو اعوجاج يُحيّر القارئ</li>
+      </ul>
+    </div>
+
+    <div class="key-box">
+      <strong>💡 الفكرة الجوهرية:</strong> الموقع الإلكتروني ليس مجرد صفحات — بل هو هوية رقمية كاملة. نجاحه يبدأ من التخطيط الصحيح وينتهي بتجربة مستخدم متميزة.
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== LINKS ========== -->
+<div id="links" class="section">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background: var(--primary-light);">🔗</div>
+      <div>
+        <div class="card-title">ربط المنهج كله ببعضه</div>
+        <div class="card-sub">كيف تتكامل المحاضرات الخمس لتشكّل منظومة متكاملة</div>
+      </div>
+    </div>
+
+    <div class="connection-grid">
+      <div class="conn-card" style="background: var(--primary-light); border-color: var(--primary);">
+        <div class="emoji">🏗️</div>
+        <h4>م١: صناعة المحتوى</h4>
+        <p style="font-size:12px; margin-top:6px; color: var(--primary);">من يصنع المحتوى؟</p>
+      </div>
+      <div class="conn-card" style="background: var(--teal-light); border-color: var(--teal);">
+        <div class="emoji">🖼️</div>
+        <h4>م٢: القصص التفاعلية</h4>
+        <p style="font-size:12px; margin-top:6px; color: var(--teal);">كيف يُقدَّم المحتوى؟</p>
+      </div>
+      <div class="conn-card" style="background: var(--amber-light); border-color: var(--amber);">
+        <div class="emoji">📰</div>
+        <h4>م٣: القوالب الخبرية</h4>
+        <p style="font-size:12px; margin-top:6px; color: var(--amber);">ما قالب المحتوى؟</p>
+      </div>
+      <div class="conn-card" style="background: var(--blue-light); border-color: var(--blue);">
+        <div class="emoji">📱</div>
+        <h4>م٤: التواصل الاجتماعي</h4>
+        <p style="font-size:12px; margin-top:6px; color: var(--blue);">أين يُنشر المحتوى؟</p>
+      </div>
+      <div class="conn-card" style="background: var(--green-light); border-color: var(--green);">
+        <div class="emoji">🌐</div>
+        <h4>م٥: المواقع الإلكترونية</h4>
+        <p style="font-size:12px; margin-top:6px; color: var(--green);">ما الوعاء الرقمي؟</p>
+      </div>
+    </div>
+
+    <div style="margin: 20px 0; padding: 20px; background: var(--gray-light); border-radius: 10px;">
+      <h3 style="color: var(--primary); margin-bottom: 16px; font-size: 16px;">🧩 الخيط الرابط: رحلة المحتوى الرقمي</h3>
+      <div style="display: grid; gap: 12px;">
+        <div style="display:flex; align-items:center; gap: 12px; background: white; padding: 14px; border-radius: 8px; border-right: 4px solid var(--primary);">
+          <span style="font-size: 24px;">1️⃣</span>
+          <div><strong>الإنسان (م١)</strong> — غرفة الأخبار الرقمية وأدوارها المختلفة تصنع المحتوى</div>
+        </div>
+        <div style="display:flex; align-items:center; gap: 12px; background: white; padding: 14px; border-radius: 8px; border-right: 4px solid var(--teal);">
+          <span style="font-size: 24px;">2️⃣</span>
+          <div><strong>الشكل (م٢)</strong> — المحتوى يُصنع في شكل قصص مصورة وتفاعلية تُشرك الجمهور</div>
+        </div>
+        <div style="display:flex; align-items:center; gap: 12px; background: white; padding: 14px; border-radius: 8px; border-right: 4px solid var(--amber);">
+          <span style="font-size: 24px;">3️⃣</span>
+          <div><strong>القالب (م٣)</strong> — يُصاغ المحتوى في قوالب محددة: عاجل، SMS، فيتشر</div>
+        </div>
+        <div style="display:flex; align-items:center; gap: 12px; background: white; padding: 14px; border-radius: 8px; border-right: 4px solid var(--blue);">
+          <span style="font-size: 24px;">4️⃣</span>
+          <div><strong>التوزيع (م٤)</strong> — يُحرَّر المحتوى لمنصات التواصل الاجتماعي بقواعد خاصة</div>
+        </div>
+        <div style="display:flex; align-items:center; gap: 12px; background: white; padding: 14px; border-radius: 8px; border-right: 4px solid var(--green);">
+          <span style="font-size: 24px;">5️⃣</span>
+          <div><strong>البيت الرقمي (م٥)</strong> — الموقع الإلكتروني يستضيف المحتوى ويكون الهوية الدائمة</div>
+        </div>
+      </div>
+    </div>
+
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MIND MAP ========== -->
+<div id="mindmap" class="section">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background: var(--primary-light);">🧠</div>
+      <div>
+        <div class="card-title">الخريطة الذهنية الشاملة</div>
+        <div class="card-sub">ربط جميع مفاهيم المنهج في خريطة واحدة</div>
+      </div>
+    </div>
+    <div class="mindmap-container">
+<svg width="100%" viewBox="0 0 900 820" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#9c9a92" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Center node -->
+  <g>
+    <rect x="330" y="360" width="240" height="60" rx="10" fill="#534AB7" stroke="#3C3489" stroke-width="1"/>
+    <text x="450" y="385" text-anchor="middle" fill="white" font-size="14" font-weight="600">صحافة الوسائط المتعددة</text>
+    <text x="450" y="405" text-anchor="middle" fill="#CECBF6" font-size="12">د/ الزهراء رشاد</text>
+  </g>
+
+  <!-- Branch 1: Top Left - LEC1 -->
+  <line x1="380" y1="362" x2="230" y2="220" stroke="#534AB7" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="80" y="155" width="200" height="46" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/>
+  <text x="180" y="174" text-anchor="middle" fill="#3C3489" font-size="13" font-weight="600">م١: صناعة المحتوى</text>
+  <text x="180" y="192" text-anchor="middle" fill="#534AB7" font-size="11">غرفة الأخبار الرقمية</text>
+  <!-- sub nodes lec1 -->
+  <line x1="130" y1="202" x2="90" y2="240" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="20" y="240" width="130" height="32" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="85" y="260" text-anchor="middle" fill="#444" font-size="11">أدوار المحرر</text>
+  <line x1="180" y1="202" x2="180" y2="285" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="110" y="285" width="130" height="32" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="175" y="305" text-anchor="middle" fill="#444" font-size="11">قواعد الكتابة</text>
+  <line x1="225" y1="202" x2="260" y2="250" stroke="#AFA9EC" stroke-width="1"/>
+  <rect x="195" y="250" width="100" height="32" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.8"/>
+  <text x="245" y="270" text-anchor="middle" fill="#444" font-size="11">ChartBeat</text>
+
+  <!-- Branch 2: Top Right - LEC2 -->
+  <line x1="520" y1="362" x2="660" y2="220" stroke="#0F6E56" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="610" y="155" width="210" height="46" rx="8" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/>
+  <text x="715" y="174" text-anchor="middle" fill="#085041" font-size="13" font-weight="600">م٢: القصص التفاعلية</text>
+  <text x="715" y="192" text-anchor="middle" fill="#0F6E56" font-size="11">الصحافة التصويرية</text>
+  <!-- sub nodes lec2 -->
+  <line x1="660" y1="200" x2="620" y2="250" stroke="#9FE1CB" stroke-width="1"/>
+  <rect x="550" y="250" width="130" height="32" rx="6" fill="white" stroke="#9FE1CB" stroke-width="0.8"/>
+  <text x="615" y="270" text-anchor="middle" fill="#444" font-size="11">عناصر الصورة</text>
+  <line x1="715" y1="202" x2="715" y2="285" stroke="#9FE1CB" stroke-width="1"/>
+  <rect x="650" y="285" width="130" height="32" rx="6" fill="white" stroke="#9FE1CB" stroke-width="0.8"/>
+  <text x="715" y="305" text-anchor="middle" fill="#444" font-size="11">القصص الرقمية</text>
+  <line x1="760" y1="200" x2="800" y2="250" stroke="#9FE1CB" stroke-width="1"/>
+  <rect x="750" y="250" width="100" height="32" rx="6" fill="white" stroke="#9FE1CB" stroke-width="0.8"/>
+  <text x="800" y="270" text-anchor="middle" fill="#444" font-size="11">أدوات الإنشاء</text>
+
+  <!-- Branch 3: Left - LEC3 -->
+  <line x1="330" y1="390" x2="155" y2="390" stroke="#854F0B" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="20" y="365" width="185" height="46" rx="8" fill="#FAEEDA" stroke="#FAC775" stroke-width="1"/>
+  <text x="112" y="384" text-anchor="middle" fill="#412402" font-size="13" font-weight="600">م٣: القوالب الخبرية</text>
+  <text x="112" y="401" text-anchor="middle" fill="#854F0B" font-size="11">المنصات الإلكترونية</text>
+  <!-- sub nodes lec3 -->
+  <line x1="60" y1="412" x2="40" y2="460" stroke="#FAC775" stroke-width="1"/>
+  <rect x="5" y="460" width="100" height="32" rx="6" fill="white" stroke="#FAC775" stroke-width="0.8"/>
+  <text x="55" y="480" text-anchor="middle" fill="#444" font-size="11">الخبر العاجل</text>
+  <line x1="112" y1="412" x2="112" y2="495" stroke="#FAC775" stroke-width="1"/>
+  <rect x="47" y="495" width="130" height="32" rx="6" fill="white" stroke="#FAC775" stroke-width="0.8"/>
+  <text x="112" y="515" text-anchor="middle" fill="#444" font-size="11">الرسائل SMS</text>
+  <line x1="165" y1="412" x2="185" y2="460" stroke="#FAC775" stroke-width="1"/>
+  <rect x="135" y="460" width="100" height="32" rx="6" fill="white" stroke="#FAC775" stroke-width="0.8"/>
+  <text x="185" y="480" text-anchor="middle" fill="#444" font-size="11">الفيتشر</text>
+
+  <!-- Branch 4: Right - LEC4 -->
+  <line x1="570" y1="390" x2="745" y2="390" stroke="#185FA5" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="695" y="365" width="195" height="46" rx="8" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="1"/>
+  <text x="792" y="384" text-anchor="middle" fill="#042C53" font-size="13" font-weight="600">م٤: التواصل الاجتماعي</text>
+  <text x="792" y="401" text-anchor="middle" fill="#185FA5" font-size="11">معالجة وتحرير المحتوى</text>
+  <!-- sub nodes lec4 -->
+  <line x1="730" y1="412" x2="690" y2="460" stroke="#B5D4F4" stroke-width="1"/>
+  <rect x="620" y="460" width="130" height="32" rx="6" fill="white" stroke="#B5D4F4" stroke-width="0.8"/>
+  <text x="685" y="480" text-anchor="middle" fill="#444" font-size="11">محرر التواصل</text>
+  <line x1="792" y1="412" x2="792" y2="495" stroke="#B5D4F4" stroke-width="1"/>
+  <rect x="732" y="495" width="120" height="32" rx="6" fill="white" stroke="#B5D4F4" stroke-width="0.8"/>
+  <text x="792" y="515" text-anchor="middle" fill="#444" font-size="11">الخوارزميات</text>
+  <line x1="850" y1="412" x2="870" y2="460" stroke="#B5D4F4" stroke-width="1"/>
+  <rect x="830" y="460" width="62" height="32" rx="6" fill="white" stroke="#B5D4F4" stroke-width="0.8"/>
+  <text x="861" y="480" text-anchor="middle" fill="#444" font-size="11">ميتافيرس</text>
+
+  <!-- Branch 5: Bottom - LEC5 -->
+  <line x1="450" y1="420" x2="450" y2="540" stroke="#3B6D11" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="325" y="540" width="250" height="46" rx="8" fill="#EAF3DE" stroke="#C0DD97" stroke-width="1"/>
+  <text x="450" y="559" text-anchor="middle" fill="#173404" font-size="13" font-weight="600">م٥: المواقع الإلكترونية</text>
+  <text x="450" y="576" text-anchor="middle" fill="#3B6D11" font-size="11">تصميم وإنشاء المواقع</text>
+  <!-- sub nodes lec5 -->
+  <line x1="370" y1="587" x2="310" y2="640" stroke="#C0DD97" stroke-width="1"/>
+  <rect x="230" y="640" width="130" height="32" rx="6" fill="white" stroke="#C0DD97" stroke-width="0.8"/>
+  <text x="295" y="660" text-anchor="middle" fill="#444" font-size="11">مراحل التصميم</text>
+  <line x1="450" y1="587" x2="450" y2="640" stroke="#C0DD97" stroke-width="1"/>
+  <rect x="375" y="640" width="150" height="32" rx="6" fill="white" stroke="#C0DD97" stroke-width="0.8"/>
+  <text x="450" y="660" text-anchor="middle" fill="#444" font-size="11">أهم الصفحات الأربع</text>
+  <line x1="530" y1="587" x2="590" y2="640" stroke="#C0DD97" stroke-width="1"/>
+  <rect x="535" y="640" width="130" height="32" rx="6" fill="white" stroke="#C0DD97" stroke-width="0.8"/>
+  <text x="600" y="660" text-anchor="middle" fill="#444" font-size="11">تحسين الموقع</text>
+
+  <!-- Common thread at bottom -->
+  <rect x="200" y="720" width="500" height="42" rx="10" fill="#F1EFE8" stroke="#888780" stroke-width="1"/>
+  <text x="450" y="737" text-anchor="middle" fill="#2C2C2A" font-size="13" font-weight="600">🔗 الخيط الجامع: خدمة الجمهور الرقمي بمحتوى تفاعلي متكامل</text>
+  <text x="450" y="754" text-anchor="middle" fill="#888780" font-size="11">الإنسان → الشكل → القالب → التوزيع → البيت الرقمي</text>
+
+  <!-- Connecting arrows from main branches to bottom -->
+  <line x1="330" y1="560" x2="270" y2="720" stroke="#C0DD97" stroke-width="0.8" stroke-dasharray="3 3"/>
+  <line x1="570" y1="560" x2="630" y2="720" stroke="#C0DD97" stroke-width="0.8" stroke-dasharray="3 3"/>
+</svg>
+    </div>
+  </div>
+
+  <!-- Secondary mind map - LEC1 details -->
+  <div class="card">
+    <div class="card-header" style="border-bottom-color: var(--primary-light);">
+      <div class="card-icon" style="background: var(--primary-light);">🏗️</div>
+      <div>
+        <div class="card-title" style="color: var(--primary);">خريطة ذهنية: صناعة المحتوى الرقمي (م١)</div>
+      </div>
+    </div>
+    <div class="mindmap-container">
+<svg width="100%" viewBox="0 0 820 380" xmlns="http://www.w3.org/2000/svg">
+  <!-- Center -->
+  <rect x="310" y="155" width="200" height="50" rx="10" fill="#534AB7" stroke="#3C3489" stroke-width="1"/>
+  <text x="410" y="178" text-anchor="middle" fill="white" font-size="13" font-weight="600">غرفة الأخبار الرقمية</text>
+  <text x="410" y="196" text-anchor="middle" fill="#CECBF6" font-size="11">Digital Newsroom</text>
+  <!-- Roles branch left -->
+  <line x1="310" y1="175" x2="165" y2="110" stroke="#534AB7" stroke-width="1.5"/>
+  <rect x="40" y="85" width="160" height="40" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/>
+  <text x="120" y="102" text-anchor="middle" fill="#3C3489" font-size="12" font-weight="600">الأدوار الوظيفية (٦)</text>
+  <text x="120" y="117" text-anchor="middle" fill="#534AB7" font-size="10">المحرر | الناشر | المصور</text>
+  <!-- sub-roles -->
+  <line x1="80" y1="86" x2="55" y2="40" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="5" y="18" width="100" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="55" y="36" text-anchor="middle" fill="#534" font-size="10">محرر السوشيال</text>
+  <line x1="120" y1="86" x2="120" y2="40" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="65" y="18" width="110" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="120" y="36" text-anchor="middle" fill="#534" font-size="10">صحفي الفيديو</text>
+  <line x1="160" y1="86" x2="190" y2="40" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="155" y="18" width="90" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="200" y="36" text-anchor="middle" fill="#534" font-size="10">المصحح اللغوي</text>
+
+  <!-- Rules branch right -->
+  <line x1="510" y1="175" x2="655" y2="110" stroke="#534AB7" stroke-width="1.5"/>
+  <rect x="620" y="85" width="180" height="40" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/>
+  <text x="710" y="102" text-anchor="middle" fill="#3C3489" font-size="12" font-weight="600">قواعد الكتابة الرقمية</text>
+  <text x="710" y="117" text-anchor="middle" fill="#534AB7" font-size="10">١٠+ قاعدة أساسية</text>
+  <!-- sub-rules -->
+  <line x1="660" y1="86" x2="620" y2="40" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="555" y="18" width="120" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="615" y="36" text-anchor="middle" fill="#534" font-size="10">اعرف قراءك</text>
+  <line x1="710" y1="86" x2="710" y2="40" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="650" y="18" width="120" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="710" y="36" text-anchor="middle" fill="#534" font-size="10">Google Trends</text>
+  <line x1="760" y1="86" x2="790" y2="40" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="750" y="18" width="65" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="782" y="36" text-anchor="middle" fill="#534" font-size="10">Hyperlink</text>
+
+  <!-- ChartBeat branch bottom -->
+  <line x1="410" y1="205" x2="410" y2="265" stroke="#534AB7" stroke-width="1.5"/>
+  <rect x="295" y="265" width="230" height="40" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/>
+  <text x="410" y="283" text-anchor="middle" fill="#3C3489" font-size="12" font-weight="600">ChartBeat (أداة التحليل)</text>
+  <text x="410" y="299" text-anchor="middle" fill="#534AB7" font-size="10">مؤشرات المحتوى | عدد القراء | مدة القراءة</text>
+  <!-- sub-chart -->
+  <line x1="350" y1="306" x2="260" y2="345" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="170" y="335" width="145" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="242" y="353" text-anchor="middle" fill="#534" font-size="10">مؤشرات مبيعات رقمية</text>
+  <line x1="470" y1="306" x2="560" y2="345" stroke="#AFA9EC" stroke-width="0.8"/>
+  <rect x="490" y="335" width="155" height="28" rx="6" fill="white" stroke="#AFA9EC" stroke-width="0.7"/>
+  <text x="567" y="353" text-anchor="middle" fill="#534" font-size="10">تحليل أداء المحتوى</text>
+</svg>
+    </div>
+  </div>
+
+  <!-- Mind map LEC3 -->
+  <div class="card">
+    <div class="card-header" style="border-bottom-color: var(--amber-light);">
+      <div class="card-icon" style="background: var(--amber-light);">📰</div>
+      <div>
+        <div class="card-title" style="color: var(--amber);">خريطة ذهنية: القوالب الخبرية (م٣)</div>
+      </div>
+    </div>
+    <div class="mindmap-container">
+<svg width="100%" viewBox="0 0 820 340" xmlns="http://www.w3.org/2000/svg">
+  <!-- Center -->
+  <rect x="295" y="135" width="230" height="50" rx="10" fill="#854F0B" stroke="#633806" stroke-width="1"/>
+  <text x="410" y="158" text-anchor="middle" fill="white" font-size="13" font-weight="600">القوالب الخبرية الإلكترونية</text>
+  <text x="410" y="176" text-anchor="middle" fill="#FAC775" font-size="11">٣ قوالب رئيسية</text>
+
+  <!-- Branch 1: Breaking News (left) -->
+  <line x1="295" y1="155" x2="140" y2="85" stroke="#854F0B" stroke-width="1.5"/>
+  <rect x="15" y="58" width="200" height="46" rx="8" fill="#FAEEDA" stroke="#FAC775" stroke-width="1"/>
+  <text x="115" y="78" text-anchor="middle" fill="#412402" font-size="12" font-weight="600">الأخبار العاجلة</text>
+  <text x="115" y="95" text-anchor="middle" fill="#854F0B" font-size="10">Breaking News</text>
+  <!-- sub -->
+  <line x1="115" y1="105" x2="75" y2="145" stroke="#FAC775" stroke-width="0.8"/>
+  <rect x="10" y="145" width="130" height="28" rx="6" fill="white" stroke="#FAC775" stroke-width="0.7"/>
+  <text x="75" y="163" text-anchor="middle" fill="#633" font-size="10">تويتر منصة العاجل</text>
+  <line x1="145" y1="105" x2="165" y2="145" stroke="#FAC775" stroke-width="0.8"/>
+  <rect x="120" y="145" width="120" height="28" rx="6" fill="white" stroke="#FAC775" stroke-width="0.7"/>
+  <text x="180" y="163" text-anchor="middle" fill="#633" font-size="10">٣ طرق للاشتراك</text>
+
+  <!-- Branch 2: SMS (bottom) -->
+  <line x1="410" y1="185" x2="410" y2="260" stroke="#854F0B" stroke-width="1.5"/>
+  <rect x="280" y="260" width="260" height="46" rx="8" fill="#FAEEDA" stroke="#FAC775" stroke-width="1"/>
+  <text x="410" y="280" text-anchor="middle" fill="#412402" font-size="12" font-weight="600">الرسائل القصيرة SMS</text>
+  <text x="410" y="297" text-anchor="middle" fill="#854F0B" font-size="10">معايير الاختيار + الصياغة</text>
+  <!-- sub -->
+  <line x1="330" y1="307" x2="260" y2="330" stroke="#FAC775" stroke-width="0.8"/>
+  <rect x="180" y="320" width="155" height="28" rx="6" fill="white" stroke="#FAC775" stroke-width="0.7"/>
+  <text x="257" y="338" text-anchor="middle" fill="#633" font-size="10">10 كلمات / 160 حرف</text>
+  <line x1="490" y1="307" x2="560" y2="330" stroke="#FAC775" stroke-width="0.8"/>
+  <rect x="490" y="320" width="145" height="28" rx="6" fill="white" stroke="#FAC775" stroke-width="0.7"/>
+  <text x="562" y="338" text-anchor="middle" fill="#633" font-size="10">3-5 رسائل يومياً</text>
+
+  <!-- Branch 3: Featurе (right) -->
+  <line x1="525" y1="155" x2="680" y2="85" stroke="#854F0B" stroke-width="1.5"/>
+  <rect x="620" y="58" width="190" height="46" rx="8" fill="#FAEEDA" stroke="#FAC775" stroke-width="1"/>
+  <text x="715" y="78" text-anchor="middle" fill="#412402" font-size="12" font-weight="600">الفيتشر الخبري</text>
+  <text x="715" y="95" text-anchor="middle" fill="#854F0B" font-size="10">Feature Article</text>
+  <!-- sub -->
+  <line x1="665" y1="105" x2="625" y2="145" stroke="#FAC775" stroke-width="0.8"/>
+  <rect x="555" y="145" width="140" height="28" rx="6" fill="white" stroke="#FAC775" stroke-width="0.7"/>
+  <text x="625" y="163" text-anchor="middle" fill="#633" font-size="10">بناء: عنوان+مقدمة+تفاصيل</text>
+  <line x1="745" y1="105" x2="780" y2="145" stroke="#FAC775" stroke-width="0.8"/>
+  <rect x="710" y="145" width="100" height="28" rx="6" fill="white" stroke="#FAC775" stroke-width="0.7"/>
+  <text x="760" y="163" text-anchor="middle" fill="#633" font-size="10">٥ أنواع قصص</text>
+</svg>
+    </div>
+  </div>
+</div>
+
+<!-- ========== QUIZ ========== -->
+<div id="quiz" class="section">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background: var(--primary-light);">✅</div>
+      <div>
+        <div class="card-title">١٠٠ سؤال صح وخطأ مع التعليل</div>
+        <div class="card-sub">اضغط على السؤال لمعرفة الإجابة والتعليل</div>
+      </div>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-stat"><div class="num" id="total-q">100</div><div class="label">إجمالي الأسئلة</div></div>
+      <div class="score-stat"><div class="num" style="color:var(--green)" id="true-q">60</div><div class="label">صح ✓</div></div>
+      <div class="score-stat"><div class="num" style="color:var(--red)" id="false-q">40</div><div class="label">خطأ ✗</div></div>
+    </div>
+
+    <div class="filter-btns">
+      <button class="filter-btn active" onclick="filterQ('all')">الكل (١٠٠)</button>
+      <button class="filter-btn" onclick="filterQ('lec1')">م١: صناعة المحتوى</button>
+      <button class="filter-btn" onclick="filterQ('lec2')">م٢: القصص التفاعلية</button>
+      <button class="filter-btn" onclick="filterQ('lec3')">م٣: القوالب الخبرية</button>
+      <button class="filter-btn" onclick="filterQ('lec4')">م٤: التواصل الاجتماعي</button>
+      <button class="filter-btn" onclick="filterQ('lec5')">م٥: المواقع الإلكترونية</button>
+    </div>
+
+    <div class="question-grid" id="quiz-grid">
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+const questions = [
+  // ===== LEC 1 (1-20) =====
+  {id:1, lec:'lec1', text:'ChartBeat هي أداة تستخدمها المواقع الكبيرة لمعرفة عدد القراء ومدة قراءتهم للمحتوى.', answer:true, explain:'صحيح تماماً. ChartBeat خدمة اشتراك تتيح للمواقع مؤشرات تفصيلية عن المحتوى مثل عدد القراء الحاليين والمدة التي يقضيها المستخدم، وتعادل أرقام مبيعات الصحف التقليدية.'},
+  {id:2, lec:'lec1', text:'دور محرر السوشيال ميديا يقتصر فقط على تسويق المحتوى على منصات التواصل الاجتماعي.', answer:false, explain:'خطأ. دور محرر السوشيال تجاوز التسويق بكثير — فهو يدرس المنافسين، يحلل محتواهم، ويقدم تقارير تحليلية في الاجتماع اليومي لغرف الأخبار الرقمية.'},
+  {id:3, lec:'lec1', text:'يجب أن يبدأ عنوان المحتوى الرقمي الجذاب بكلمات مثل "حصري" أو "انفراد" أو "تفاصيل".', answer:true, explain:'صحيح. هذه الكلمات الافتتاحية تزيد من نسبة النقر والتفاعل، وينصح بكتابة عنوان من 5-7 كلمات يبدأ بهذه الكلمات.'},
+  {id:4, lec:'lec1', text:'صحفي الفيديو في العصر الرقمي مقتصر دوره على تغطية المؤتمرات فقط.', answer:false, explain:'خطأ. صحفي الفيديو يمتد دوره لتغطية المؤتمرات والمباريات والأحداث المتنوعة، بل يمكنه إجراء بث مباشر وإنتاج تقارير إخبارية كاملة.'},
+  {id:5, lec:'lec1', text:'قاعدة "فكر مثل الناشرين" تعني دراسة ما إذا كان الموضوع يستحق النشر في الصفحة الرئيسية.', answer:true, explain:'صحيح. تشمل هذه القاعدة التفكير في: الصورة المناسبة، هل يوجد فيديو أو إنفوجرافيك، وما النتائج المترتبة على النشر.'},
+  {id:6, lec:'lec1', text:'المصحح اللغوي ليس جزءاً أساسياً من فريق غرفة الأخبار الرقمية.', answer:false, explain:'خطأ. المصحح اللغوي يُعدّ عنصراً مهماً في صناعة المحتوى لضمان خلوه من الأخطاء اللغوية التي تُضعف القيمة التسويقية للمنصة.'},
+  {id:7, lec:'lec1', text:'موقع Google Trends يساعد الصحفيين على معرفة الموضوعات التي يبحث عنها الجمهور.', answer:true, explain:'صحيح. Google Trends يُظهر الموضوعات الرائجة مثل أحداث الحوادث والأسعار والأحداث السياسية، مما يساعد الصحفي في اختيار موضوعات تلقى اهتمام القراء.'},
+  {id:8, lec:'lec1', text:'الناشر يمكنه نشر أي محتوى بغض النظر عن السياسة التحريرية.', answer:false, explain:'خطأ. الناشر ملزم باتباع السياسة التحريرية للمؤسسة والمعايير الأخلاقية، وهو من يتحكم في ما يُنشر وما لا يُنشر وفق هذه المعايير.'},
+  {id:9, lec:'lec1', text:'كتابة النص القصير والبسيط هي قاعدة أساسية في الكتابة الإلكترونية لأن الجمهور الرقمي يشعر بالملل بسرعة.', answer:true, explain:'صحيح. الجمهور الرقمي لديه وقت انتباه أقصر، لذا يجب كتابة نصوص بسيطة ومكثفة مع عناوين جذابة وتقليل كلمات الفقرات.'},
+  {id:10, lec:'lec1', text:'محرر الرياضة ومحرر الأخبار السياسية لهما نفس الاهتمامات والمسؤوليات.', answer:false, explain:'خطأ. كل محرر متخصص في مجاله — محرر الرياضة يتناول أخبار الكرة والألعاب، بينما يتناول محرر السياسة الأحداث السياسية والمؤتمرات.'},
+  {id:11, lec:'lec1', text:'Hyperlink في النصوص الرقمية يُستخدم فقط للربط بالصفحة الرئيسية للموقع.', answer:false, explain:'خطأ. Hyperlink يُستخدم لربط النص بمحتوى ذي صلة كالاشتراك في حملات إعلانية أو دعائية أو أخبار ذات صلة بالموضوع.'},
+  {id:12, lec:'lec1', text:'المضمون الفعال هو المحتوى الذي يقدم قيمة مفيدة للجمهور كالتعليم والصحة ونبذ العنف.', answer:true, explain:'صحيح. المحتوى الفعال يتجاوز الإثارة ليُقدم فائدة حقيقية، وهو من القواعد الأساسية للكتابة الرقمية الناجحة.'},
+  {id:13, lec:'lec1', text:'الاجتماع اليومي لغرفة الأخبار الرقمية لا يشمل محرري التواصل الاجتماعي.', answer:false, explain:'خطأ. محرر السوشيال ميديا يُشارك في الاجتماع اليومي ويقدم تقريراً عن تحليل المنافسين وما يتداوله الجمهور على منصات التواصل.'},
+  {id:14, lec:'lec1', text:'معرفة احتياجات الجمهور وثقافتهم واهتماماتهم شرط أساسي لأي كتابة ناجحة.', answer:true, explain:'صحيح. هذه القاعدة الأولى في الكتابة الرقمية — "اعرف قراءك" — تؤثر على أسلوب الكتابة ونوع المحتوى وطريقة تقديمه.'},
+  {id:15, lec:'lec1', text:'ألبوم الصور على الإنترنت هو مسؤولية المصور فقط دون محرري الأقسام الأخرى.', answer:false, explain:'خطأ. ألبوم الصور في المصري اليوم مثلاً يُعدّ قسماً متكاملاً يتطلب تعاون المصور مع المحرر والناشر لضمان جودة المحتوى.'},
+  {id:16, lec:'lec1', text:'يمكن للصحفي الرقمي الناجح أن يكتب بدون معرفة أسلوب استخدام محركات البحث SEO.', answer:false, explain:'خطأ. يحتاج الصحفي الرقمي لفهم الكلمات المفتاحية والهاشتاقات والترندات لضمان وصول محتواه للجمهور المستهدف.'},
+  {id:17, lec:'lec1', text:'ChartBeat تقدم خدمة مجانية لجميع المواقع.', answer:false, explain:'خطأ. ChartBeat خدمة تشترك فيها المواقع بمقابل مالي لتحصل على بيانات ومؤشرات تفصيلية عن أداء محتواها.'},
+  {id:18, lec:'lec1', text:'صحفي الفيديو يستطيع إجراء بث مباشر للأحداث في العصر الرقمي.', answer:true, explain:'صحيح. من أبرز مهام صحفي الفيديو في العصر الرقمي القدرة على البث المباشر للمؤتمرات والمباريات والأحداث الرياضية وغيرها.'},
+  {id:19, lec:'lec1', text:'وظيفة محرر السوشيال ميديا تشمل دراسة ما يتداوله الجمهور في وسائل الإعلام العالمية ووكالات الأنباء.', answer:true, explain:'صحيح. المحرر يقدم تنبيهاً للاجتماع اليومي عن ما تتحدث عنه مواقع التواصل ووكالات الأنباء ووسائل الإعلام المحلية والعالمية.'},
+  {id:20, lec:'lec1', text:'المحتوى الرقمي لا يحتاج إلى مراعاة النتائج المترتبة على نشره.', answer:false, explain:'خطأ. من قواعد "فكر مثل الناشرين" دراسة النتائج المترتبة على النشر من تأثيرات دينية وأخلاقية ورياضية وغيرها.'},
+
+  // ===== LEC 2 (21-40) =====
+  {id:21, lec:'lec2', text:'رودولف توبفر هو المخترع السويسري لأولى القصص المصورة في أوائل القرن التاسع عشر.', answer:true, explain:'صحيح. رودولف توبفر فنان سويسري جمع الصور والنصوص لسرد القصص، وامتد تأثيره في أوروبا حتى الولايات المتحدة.'},
+  {id:22, lec:'lec2', text:'صورة "رجل الدبابة" في ساحة تيانانمن 1989 تُعدّ مثالاً على عنصر الصدق البصري.', answer:false, explain:'خطأ. صورة رجل الدبابة تُعدّ مثالاً على عنصر "التوقيت" — التقطت اللحظة في توقيت مثالي جعلها أيقونة عالمية. أما مثال الصدق البصري فهو صورة آلان كردي 2015.'},
+  {id:23, lec:'lec2', text:'القصص الرقمية التفاعلية تسمح للقارئ بالتفاعل مع المحتوى مثل تغيير تسلسل الأحداث.', answer:true, explain:'صحيح. من مميزات القصص الرقمية التفاعلية أنها تمنح القارئ إمكانية التنقل بين المشاهد وتغيير تسلسل الأحداث وحتى اتخاذ قرارات تؤثر على مسار القصة.'},
+  {id:24, lec:'lec2', text:'الهدف الأساسي للصحافة التصويرية هو تجميل المحتوى النصي فقط.', answer:false, explain:'خطأ. الهدف الأساسي هو التقاط ونقل اللحظات والقصص المهمة بدقة ومصداقية، وإعلام الجمهور وإشراكه — وليس مجرد التجميل.'},
+  {id:25, lec:'lec2', text:'أداة Shorthand تُستخدم لإنشاء قصص صحفية تفاعلية مع دمج الصور والفيديو والبيانات.', answer:true, explain:'صحيح. Shorthand أداة متخصصة لإنشاء قصص صحفية تفاعلية بسهولة مع إمكانية دمج عناصر الوسائط المتعددة المختلفة.'},
+  {id:26, lec:'lec2', text:'القصص التفاعلية المباشرة (Real-time) لا تتحدث عن أحداث حية وإنما أحداث محفوظة.', answer:false, explain:'خطأ. القصص التفاعلية المباشرة تُغطي الأحداث الحية والعاجلة بتحديث مستمر بناءً على التفاعلات اللحظية مع الجمهور.'},
+  {id:27, lec:'lec2', text:'StoryMapJS أداة تدمج الخرائط التفاعلية مع النصوص والصور لإخبار قصة جغرافية.', answer:true, explain:'صحيح. StoryMapJS مصمم خصيصاً لربط القصص بالمواقع الجغرافية عبر خرائط تفاعلية مع نصوص وصور.'},
+  {id:28, lec:'lec2', text:'القصة الصحفية المصورة المصممة للتأثير العاطفي المفرط تحتفظ بقيمتها الصحفية.', answer:false, explain:'خطأ. الصور المصممة للتأثير العاطفي المفرط أو لإثارة جدل مفتعل تفقد قيمتها الصحفية وتتحول إلى دعاية أو تلاعب إعلامي.'},
+  {id:29, lec:'lec2', text:'القصص التفاعلية متعددة المسارات (Branching paths) تسمح للقارئ بتحديد مسار القصة.', answer:true, explain:'صحيح. هذا النوع يمنح القارئ حرية الاختيار بين مسارات مختلفة للأحداث أو الشخصيات، مما يجعل تجربته فريدة ومختلفة عن غيره.'},
+  {id:30, lec:'lec2', text:'الصدق البصري يعني أن الصورة يمكن تعديلها رقمياً طالما بدت واقعية.', answer:false, explain:'خطأ. الصدق البصري يعني عدم التجميل أو التحريف أو التلاعب الرقمي — الصورة تُقدم الحقيقة كما هي.'},
+  {id:31, lec:'lec2', text:'Tableau أداة تحليل البيانات يمكن دمجها في القصص لعرض بيانات تفاعلية.', answer:true, explain:'صحيح. Tableau من أبرز أدوات البيانات التفاعلية وتُستخدم في الصحافة الرقمية لتقديم بيانات معقدة بصورة مرئية وتفاعلية.'},
+  {id:32, lec:'lec2', text:'السرد البصري يعني أن الصورة تكتفي بعرض لقطة جامدة دون أبعاد أعمق.', answer:false, explain:'خطأ. السرد البصري يعني أن الصورة الجيدة تفتح باباً للتأمل وتُلمح لما وراء المشهد من سياق وأصوات ومشاعر.'},
+  {id:33, lec:'lec2', text:'أهداف القصة الصحفية المصورة تشمل إعطاء الصوت لمن لا صوت لهم.', answer:true, explain:'صحيح. المصور الصحفي لا ينقل حدثاً فحسب، بل يمنح صوتاً للمهمشين والفئات التي لم تُمنح حق الكلام كاللاجئين وسكان الأحياء الفقيرة.'},
+  {id:34, lec:'lec2', text:'تطورت القصص المصورة مع تقدم التكنولوجيا لتصبح رقمية وأكثر توافراً للجمهور العالمي.', answer:true, explain:'صحيح. أدى ظهور القصص المصورة الرقمية ووجودها على الإنترنت إلى توسيع نطاق وصولها ليشمل جمهوراً عالمياً واسعاً.'},
+  {id:35, lec:'lec2', text:'القصة الإخبارية التفاعلية الموجهة (Guided) تمنح القارئ حرية كاملة في تحديد مسار القصة.', answer:false, explain:'خطأ. القصة الموجهة تأتي بمسار ثابت يجب على القارئ اتباعه، مع وجود بعض اللحظات التفاعلية المحدودة كالضغط على نقاط مضيئة.'},
+  {id:36, lec:'lec2', text:'تعزيز التفاعل الرقمي أصبح هدفاً جديداً للقصة الصحفية المصورة في العصر الرقمي.', answer:true, explain:'صحيح. في العصر الرقمي أصبحت الصورة تفاعلية يمكن دمجها مع عناصر مرئية وروابط ورسوم متحركة لإثراء التجربة الصحفية.'},
+  {id:37, lec:'lec2', text:'صورة آلان كردي عام 2015 كانت مثالاً على الصدق البصري لأنها قدمت الحقيقة دون تجميل.', answer:true, explain:'صحيح. الصورة لم تُجمّل الحدث ولم تُحرفه، بل قدمت الحقيقة كما هي وأثارت ضمير العالم، وهذا هو الصدق البصري بأعلى تجلياته.'},
+  {id:38, lec:'lec2', text:'Adobe Animate يُستخدم لإنشاء محتوى تفاعلي ثابت فقط دون رسوم متحركة.', answer:false, explain:'خطأ. Adobe Animate مصمم أساساً لإنشاء رسوم متحركة ومحتوى تفاعلي بالحركة، وليس للمحتوى الثابت فقط.'},
+  {id:39, lec:'lec2', text:'إمكانية التخصيص في القصص التفاعلية تتيح للمستخدم تجربة مخصصة حسب اهتماماته.', answer:true, explain:'صحيح. هذه الميزة من فوائد القصص الرقمية التفاعلية الأساسية — تجعل القصة أكثر تأثيراً لأن كل مستخدم يرى ما يهمه.'},
+  {id:40, lec:'lec2', text:'الصحافة التصويرية تجمع بين العناصر البصرية والممارسات الصحفية لتقديم تصوير قوي للأحداث.', answer:true, explain:'صحيح. الصحافة التصويرية فرع صحفي متكامل يدمج قوة الصورة البصرية مع المهنية الصحفية في انتقاء اللحظات وتوثيق الأحداث والقضايا الإنسانية.'},
+
+  // ===== LEC 3 (41-60) =====
+  {id:41, lec:'lec3', text:'الأخبار العاجلة تُخبر القارئ بأحداث يعلم عنها مسبقاً بوقت طويل.', answer:false, explain:'خطأ. الأخبار العاجلة تنقل أحداثاً مهمة ذات قيمة إخبارية عالية تقع بشكل مفاجئ، وهي تقف على النقيض من الأخبار التقليدية.'},
+  {id:42, lec:'lec3', text:'تويتر (X) نشأ عام 2006 كنظام لتبادل الرسائل القصيرة عبر الموبايل.', answer:true, explain:'صحيح. نشأ تويتر عام 2006 كنظام رسائل قصيرة وتطور ليصبح منصة رئيسية للأخبار العاجلة والتواصل الاجتماعي.'},
+  {id:43, lec:'lec3', text:'الرسالة الإخبارية القصيرة SMS يجب ألا تزيد عن 10 كلمات وأفضل أقل من ذلك.', answer:true, explain:'صحيح. الرسالة القصيرة تتراوح بين 70-160 حرفاً ولا تزيد عن 10 كلمات، مع التركيز على تكثيف المعلومات في أقل عدد ممكن من الكلمات.'},
+  {id:44, lec:'lec3', text:'الأخبار التي تتضمن تهديدات صحية لا تُعدّ ذات أولوية للإرسال عبر SMS.', answer:false, explain:'خطأ. الأخبار التي تحمل تهديداً صحياً لها أولوية قصوى في الإرسال عبر الرسائل القصيرة لأنها تتعلق مباشرة بسلامة القراء.'},
+  {id:45, lec:'lec3', text:'التنويع في رسائل SMS يعني إرسال 3-5 رسائل يومياً تغطي اهتمامات مختلفة.', answer:true, explain:'صحيح. من المهم التنويع في عدد ومحتوى الرسائل بحيث تتوزع على فترات اليوم بشكل متوازن وتغطي اهتمامات متعددة.'},
+  {id:46, lec:'lec3', text:'استخدام العامية في الرسائل الإخبارية القصيرة أمر مشجع لتقريب المحتوى من الجمهور.', answer:false, explain:'خطأ. على العكس، يجب الابتعاد عن العامية في SMS واستخدام فصحى سهلة بسيطة لأن الجمهور متنوع ثقافياً ومن مناطق مختلفة.'},
+  {id:47, lec:'lec3', text:'الفيتشر الخبري مادة تفصيلية تستكشف الزوايا الإنسانية في القضايا والأحداث.', answer:true, explain:'صحيح. الفيتشر مادة غنية تُقدم الحقائق بصورة "مؤنسنة" من زاوية استثنائية تخلط الصراخ بالأمل بالتفكير كما يُقال عنه.'},
+  {id:48, lec:'lec3', text:'الرسالة الإخبارية القصيرة يمكن استخدام المصطلحات الرياضية المعقدة فيها دون قيود.', answer:false, explain:'خطأ. من أبرز أخطاء SMS إساءة استخدام المصطلحات الرياضية، لذا يجب تفاديها وأن تكون المصطلحات واضحة الدلالة.'},
+  {id:49, lec:'lec3', text:'وظيفة الاشتراك في خدمة الأخبار العاجلة تتضمن ثلاث طرق: تويتر والبريد الإلكتروني والهاتف المحمول.', answer:true, explain:'صحيح. أغلب وسائل الإعلام توفر هذه الطرق الثلاث للاشتراك في خدمات الأخبار العاجلة لضمان وصول الخبر العاجل للمتابعين.'},
+  {id:50, lec:'lec3', text:'الفيتشر الخبري يقدم الحقائق بصورة جافة ومجردة مثل النشرات الإخبارية العادية.', answer:false, explain:'خطأ. الفيتشر يقدم الحقائق بصورة "مؤنسنة" (إنسانية) وليس جافة — ويعتمد على معالجة من زاوية استثنائية متفردة.'},
+  {id:51, lec:'lec3', text:'من أبرز أنواع الفيتشر قصة الرأي التي تحلل الآراء حول قضايا جارية.', answer:true, explain:'صحيح. قصة الرأي (تحليل الآراء) واحدة من الأنواع الخمسة الأساسية للفيتشر إلى جانب قصة الشخص والقصة الإنسانية والخلفية والتجربة.'},
+  {id:52, lec:'lec3', text:'اللغة المجازية في عنوان الفيتشر تُقلل من تفاعل القارئ مع المادة الصحفية.', answer:false, explain:'خطأ. اللغة المجازية في صياغة العناوين تؤدي إلى المزيد من التفاعل — فهي تُثير خيال القارئ وتدفعه للتعمق في القراءة.'},
+  {id:53, lec:'lec3', text:'في SMS يجب تجنب ذكر ما هو معروف في أوصاف الأماكن مثل قول "أسيوط بصعيد مصر".', answer:true, explain:'صحيح. لضمان الاختصار نتجنب ذكر المعلومات المعروفة — نقول "مدبولي" مباشرة بدلاً من "رئيس الوزراء مصطفى مدبولي".'},
+  {id:54, lec:'lec3', text:'البث المباشر للأحداث ألغى تماماً الحاجة إلى أدوار الصحفيين في استخلاص المعلومات.', answer:false, explain:'خطأ. رغم البث المباشر، لا تزال الحاجة قائمة لأدوار الصحفيين في استخلاص المعلومات المهمة وإيصالها للمتلقي الذي قد يفوته شيء أثناء المتابعة.'},
+  {id:55, lec:'lec3', text:'التشويش الدلالي في الرسائل القصيرة يحدث عندما يفهم القارئ الرسالة بشكل مختلف عن المرسل.', answer:true, explain:'صحيح. التشويش الدلالي ناتج عن اختلاف دلالة الكلمات بين المرسل والمستقبل، أو اختلاف الفهم الضمني، أو الجمل شاذة التركيب.'},
+  {id:56, lec:'lec3', text:'اقتباسات مباشرة في عنوان الفيتشر تُساعد على شخصنة الموضوع.', answer:true, explain:'صحيح. الاقتباس المباشر يجعل العنوان أكثر شخصية وقرباً من القارئ، مما يُحفزه على التعرف أكثر مع الموضوع.'},
+  {id:57, lec:'lec3', text:'أخبار المغارم (كارتفاع الأسعار وزيادة الضرائب) لا تُعدّ ذات أولوية في خدمة SMS.', answer:false, explain:'خطأ. أخبار المغارم من الأخبار ذات الأولوية في SMS لأنها تُخبر الجمهور بأعباء إضافية ستُفرض عليهم وتؤثر مباشرة في حياتهم.'},
+  {id:58, lec:'lec3', text:'وظيفة عنوان الفيتشر الخبري تشمل تسليط الضوء على الفكرة الرئيسية وجذب انتباه القارئ.', answer:true, explain:'صحيح. هاتان الوظيفتان الأساسيتان لعنوان الفيتشر — الجذب والتسليط، بالإضافة لإبراز النبرة الذاتية وكشف المفارقات.'},
+  {id:59, lec:'lec3', text:'الدقة في الأرقام في SMS تعني ذكر أكبر عدد ممكن من الأرقام والنسب.', answer:false, explain:'خطأ. الدقة في الأرقام تعني الاختصار وعدم التضارب وتجنب إساءة تفسيرها، وأحياناً يكفي ذكر نسبة الفائز فقط دون الخاسر.'},
+  {id:60, lec:'lec3', text:'الشخصنة في الرسائل القصيرة تُحقق اهتمام القارئ من خلال أسماء مشهورة وأماكن ذات قيمة نفسية.', answer:true, explain:'صحيح. الكلمات الشخصية (أسماء النجوم والأماكن الدينية والأندية الرياضية) تضع الرسالة في مربع الشخصنة وتستثير اهتمام القارئ.'},
+
+  // ===== LEC 4 (61-80) =====
+  {id:61, lec:'lec4', text:'محرر منصات التواصل الاجتماعي دوره يقتصر على إعادة نشر محتوى الصحيفة فقط.', answer:false, explain:'خطأ. للمحرر وظيفتان: إعادة إنتاج محتوى المنصات الأخرى، وصناعة محتوى خبري خاص بالمنصة من خلال متابعة التغريدات وإنتاج فيديوهات.'},
+  {id:62, lec:'lec4', text:'محرر التواصل الاجتماعي يجب أن يكون أشد حدة وتوهجاً من المحرر التقليدي.', answer:true, explain:'صحيح. لأن منصات التواصل سريعة التطور وتتطلب حساسية خاصة للترندات واهتمامات الجمهور الرقمي، وهو ما يستلزم حدة أكبر في الإدراك.'},
+  {id:63, lec:'lec3', text:'منصة تويتر (X) أنسب للأخبار المفصّلة الطويلة نظراً لمساحتها الكافية للكتابة.', answer:false, explain:'خطأ. تويتر مناسب للأخبار الموجزة والعاجلة. أما الأخبار المفصلة فتناسب منصة فيسبوك التي تتيح نشر عنوان وجزء من المقدمة مع رابط للتفاصيل.'},
+  {id:64, lec:'lec4', text:'الأخبار التي تحمل قيمة المنافسة والصراع تُعدّ من الأخبار الجماهيرية الأكثر تداولاً.', answer:true, explain:'صحيح. أخبار المنافسات الرياضية والصراعات والجريمة والحرب من أكثر الأخبار جماهيرية على منصات التواصل الاجتماعي.'},
+  {id:65, lec:'lec4', text:'قالب ألبوم الصور على التواصل الاجتماعي يُعدّ من أنواع الأخبار المفتوحة على الموقع.', answer:false, explain:'خطأ. ألبوم الصور من القوالب المغلقة على المنصات — المتابع يطالع المحتوى كاملاً دون الحاجة للعودة لموقع الصحيفة.'},
+  {id:66, lec:'lec4', text:'الخوارزميات تُحلل ملفات المستخدمين واهتماماتهم لتحديد المحتوى الذي يُعرض لهم.', answer:true, explain:'صحيح. خوارزميات الذكاء الاصطناعي تُحلل السلوك الرقمي للمستخدمين وشبكة اهتماماتهم وتفضيلاتهم لتقديم محتوى مخصص لكل فرد.'},
+  {id:67, lec:'lec4', text:'قالب الفيديو لا يُستخدم على منصة فيسبوك.', answer:false, explain:'خطأ. قالب الفيديو يُستخدم على جميع المنصات بما فيها فيسبوك وتويتر وإنستجرام، وهو من الأقوالب الأكثر انتشاراً نظراً لتحول المنصات نحو المحتوى المصور.'},
+  {id:68, lec:'lec4', text:'الميتافيرس يجعل المتلقي جزءاً من الحدث الإخباري وليس مجرد متلقٍ سلبي.', answer:true, explain:'صحيح. تكنيك الميتافيرس يطور أساليب تقديم المحتوى ليصبح المتلقي عنصراً فاعلاً في التجربة الإخبارية من خلال تجارب غامرة.'},
+  {id:69, lec:'lec4', text:'اختيار الأخبار الموافقة لترند المنصة يعني اختيار الأخبار التي تُغضب الجمهور.', answer:false, explain:'خطأ. اختيار الأخبار الموافقة للترند يعني اقتناص موضوع أو حدث بدأ يتداوله الناس بكثافة، بهدف البقاء داخل الترند أطول وقت ممكن.'},
+  {id:70, lec:'lec4', text:'الخبر المغلق على الحساب يُعدّ من أفضل أنواع الأخبار على التواصل لأنه معدّ خصيصاً للمنصة.', answer:true, explain:'صحيح. الخبر المغلق يُعدّ خصيصاً بما يتناسب مع إمكانيات المنصة الفنية، مما يحقق أعلى درجات الاستخدام والانتشار.'},
+  {id:71, lec:'lec4', text:'إنستجرام تناسبها الأخبار الثقيلة والمفصّلة أكثر من الفيديو والصور.', answer:false, explain:'خطأ. إنستجرام تناسبها الأخبار الخفيفة المتعلقة بالنجوم مع التركيز على الفيديو والصورة، وليس الأخبار المفصّلة التي تناسب فيسبوك.'},
+  {id:72, lec:'lec4', text:'قالب المدونة على التواصل الاجتماعي يعتمد على تكثيف المعلومات في عدد محدود من الكلمات.', answer:true, explain:'صحيح. المدون الناجح يُجيد استخدام اللغة في أعلى قدراتها التعبيرية لنقل المعلومات بشكل مكثف ومؤثر.'},
+  {id:73, lec:'lec4', text:'منصات التواصل الاجتماعي أصبحت بيئة صحفية مستقلة لها قواعدها في الاختيار والتحرير.', answer:true, explain:'صحيح. التواصل الاجتماعي تطور من مجرد قناة توزيع إلى بيئة صحفية كاملة بقواعد خاصة تختلف عن الإعلام التقليدي.'},
+  {id:74, lec:'lec4', text:'أخبار ذوي الاحتياجات الخاصة والأطفال لا تحظى باهتمام على منصات التواصل.', answer:false, explain:'خطأ. هذه الأخبار من الفئة "ذات القيمة الإنسانية" وهي من أكثر الأخبار جماهيرية وتداولاً على منصات التواصل الاجتماعي.'},
+  {id:75, lec:'lec4', text:'محرر التواصل يجب أن يتابع التغريدات والتدوينات على حسابات المسؤولين لصناعة أخبار منها.', answer:true, explain:'صحيح. من وظائف محرر التواصل صناعة الأخبار من خلال متابعة ما ينشره المسؤولون ونجوم المجتمع، وقد تكون هذه المنشورات أخباراً مهمة جداً.'},
+  {id:76, lec:'lec4', text:'توزيع الأخبار على منصات التواصل يتجاهل الاعتبار الشخصي للمستخدم.', answer:false, explain:'خطأ. ذو القيمة الشخصية معيار أساسي في اختيار الأخبار — المستخدم عضو في مجموعات ذات اهتمامات مشتركة وتوجهات، ويفضل أخباراً تعكس هذه الاهتمامات.'},
+  {id:77, lec:'lec4', text:'قالب الفيديو يتجاوز كونه مجرد تسجيل — ويعتمد على عنوان إشاري يُهيئ القارئ لمشاهدة الحدث.', answer:true, explain:'صحيح. صياغة قالب الفيديو تعتمد على وجود عنوان إشاري أو توضيحي يُترك بعده القارئ مع الفيديو ليعيش الحدث صوتاً وصورة.'},
+  {id:78, lec:'lec4', text:'الميتافيرس تقنية لا علاقة لها بتطوير الصحافة أو تقديم المحتوى الإخباري.', answer:false, explain:'خطأ. الميتافيرس يُعدّ من أبرز تقنيات المستقبل في تطوير المحتوى الصحفي، ويُتيح تجارب غامرة تجعل المتلقي جزءاً من الحدث.'},
+  {id:79, lec:'lec4', text:'محرر التواصل يختار الأخبار الأنسب لكل منصة لأن كل منصة لها طبيعة مختلفة.', answer:true, explain:'صحيح. كل منصة لها القوالب الأنسب لها — إنستجرام للصور والفيديو الخفيف، فيسبوك للتفاصيل، تويتر للموجز والعاجل.'},
+  {id:80, lec:'lec4', text:'صحيفة تطبعها 20 ألف نسخة يومياً تصل لجمهور أكبر من متابعي حسابها على تويتر.', answer:false, explain:'خطأ. على العكس تماماً — بينما تطبع الصحيفة 20 ألف نسخة، يمتد متابعو حسابها على التواصل الاجتماعي إلى الملايين.'},
+
+  // ===== LEC 5 (81-100) =====
+  {id:81, lec:'lec5', text:'الموقع الإلكتروني يحتاج إلى ثلاثة عناصر أساسية: ملفات واستضافة واسم نطاق.', answer:true, explain:'صحيح. هذه العناصر الثلاثة ضرورية لأي موقع — الملفات تحتوي المحتوى، والاستضافة تحفظها، واسم النطاق يُعرّف عنوانه للمستخدمين.'},
+  {id:82, lec:'lec5', text:'صفحة "من نحن" في الموقع تُعدّ أقل أهمية من الصفحة الرئيسية ويمكن الاستغناء عنها.', answer:false, explain:'خطأ. صفحة "من نحن" مهمة جداً لأنها تُعبر عن هوية المؤسسة وما تقدمه، وهي فرصة للمتلقي لفهم هوية المؤسسة وأهدافها.'},
+  {id:83, lec:'lec5', text:'تحليل المنافسين والجمهور هو أولى خطوات تصميم موقع ويب.', answer:true, explain:'صحيح. التحليل هو الخطوة الأولى قبل البدء في أي تصميم — تحليل المحيط التجاري والمنافسين وجمهورك وتفضيلات الناس.'},
+  {id:84, lec:'lec5', text:'الصفحة الرئيسية للموقع هي آخر ما يراه الزائر عند دخوله.', answer:false, explain:'خطأ. الصفحة الرئيسية هي أول ما يراه الزائر وواجهة الموقع — إما تجذبه ليستمر أو تُنفّره فيغادر دون عودة.'},
+  {id:85, lec:'lec5', text:'شبكة الويب العالمية (WWW) تنشأ من تجميع جميع المواقع الإلكترونية معاً.', answer:true, explain:'صحيح. مجموع المواقع الإلكترونية في جميع البلدان يُؤدّي إلى وجود شبكة واسعة من المعلومات تعرف بشبكة الويب العالمية (WWW).'},
+  {id:86, lec:'lec5', text:'قرابة 4.54 مليار شخص يستخدمون الإنترنت يومياً وهو ما يجعل الوجود الرقمي ضرورة قصوى.', answer:true, explain:'صحيح. هذا الرقم الهائل يعني أن التواجد على الإنترنت يُتيح الوصول لأكثر من نصف إجمالي سكان العالم.'},
+  {id:87, lec:'lec5', text:'تحديد هدف الموقع وجمهوره المستهدف يمكن تأجيله لمرحلة التصميم الفعلي.', answer:false, explain:'خطأ. تحديد الأهداف يجب أن يسبق كل شيء — تحديد الأهداف الخاطئ سيجعل كل خطوات التصميم اللاحقة خاطئة وفاشلة.'},
+  {id:88, lec:'lec5', text:'تحسين صفحة التواصل يتطلب عرض بيانات الاتصال بأسلوب جذاب يُحفز العميل على التواصل.', answer:true, explain:'صحيح. لا يكفي عرض البيانات بصورة عادية — يجب تحفيز العملاء للتواصل بأسلوب صريح وجذاب دون تردد أو تأخير.'},
+  {id:89, lec:'lec5', text:'الموقع الإلكتروني الناجح لا يحتاج إلى خطوة التخطيط قبل البدء في التصميم.', answer:false, explain:'خطأ. التخطيط خطوة أساسية في مراحل التصميم — يشمل ترجمة التحليل والأهداف إلى مخطط تفصيلي وخريطة للموقع ومراحل تنفيذه.'},
+  {id:90, lec:'lec5', text:'الاستجابة للمنصات المختلفة (Responsive Design) من الأسس المهمة لتحسين الصفحة الرئيسية.', answer:true, explain:'صحيح. Responsive Design يضمن أن يعمل الموقع بشكل صحيح على جميع الأجهزة من هواتف ذكية وأجهزة لوحية وحاسوب مكتبي.'},
+  {id:91, lec:'lec5', text:'صفحة الخدمات يجب أن تُقدم وصفاً مطولاً ومعقداً لكل خدمة لإثبات الكفاءة.', answer:false, explain:'خطأ. صفحة الخدمات تحتاج لوصف بسيط مختصر يوضح لعملائك بسهولة ودون تعقيد كيف ستحل هذه الخدمات مشكلة ما.'},
+  {id:92, lec:'lec5', text:'المواقع الإلكترونية يمكن أن تأخذ أشكالاً متعددة من المدونات الشخصية إلى مواقع التجارة الإلكترونية.', answer:true, explain:'صحيح. المواقع تتنوع من مدونات شخصية ومواقع شركات وحكوماتٍ ومواقع تواصل ومواقع إخبارية وتجارة إلكترونية ومواقع بحث.'},
+  {id:93, lec:'lec5', text:'نص الصفحة الرئيسية لا يحتاج إلى دعوة للتفاعل (CTA) لأن المستخدم يعرف ماذا يفعل.', answer:false, explain:'خطأ. في كل مكان تلتقطه عين الزائر يجب وضع نص يدعوه للتفاعل مع المنتجات والخدمات — غياب CTA يؤدي لفقدان الزائر.'},
+  {id:94, lec:'lec5', text:'الهدف الرئيسي للموقع الإلكتروني هو تكبيرك في عيون عملائك وجعلهم يثقون بخدماتك.', answer:true, explain:'صحيح. الموقع يهدف إلى إيجاد اندهاش لدى العملاء يجعلهم يريدون أن يكونوا جزءاً من خدماتك — ويُعظم صورة المؤسسة.'},
+  {id:95, lec:'lec5', text:'المحتوى المكرر الذي يشبه ما رآه الزائر في مكان آخر يجذب انتباهه أكثر.', answer:false, explain:'خطأ. المحتوى المكرر يُحبطه الزائر ويعتبره محتوى مُغلقاً لا ينبغي الانتباه إليه — يجب أن يكون المحتوى فريداً ومميزاً.'},
+  {id:96, lec:'lec5', text:'اسم النطاق (Domain Name) هو العنوان الذي يميز الموقع ويُمكّن المستخدمين من الوصول إليه.', answer:true, explain:'صحيح. اسم النطاق يُعرّف عنوان الموقع بشكل واضح وهو الهوية الرقمية التي يمكن للمستخدمين من خلالها إيجاد الموقع على الإنترنت.'},
+  {id:97, lec:'lec5', text:'العوامل البصرية كالصور والرسوم الجرافيكية في الصفحة الرئيسية تُساعد الزائر على فهم الخدمات.', answer:true, explain:'صحيح. العوامل البصرية الجذابة تُلمع عين الزائر وتُساعده على فهم خدمات المؤسسة دون الحاجة لقراءة نص طويل.'},
+  {id:98, lec:'lec5', text:'الاستضافة (Hosting) ليست ضرورية إذا كان الموقع صغيراً ومحدود المحتوى.', answer:false, explain:'خطأ. الاستضافة ضرورية لأي موقع بغض النظر عن حجمه — هي التي تحمي وتخزن ملفات الموقع وتجعله متاحاً على الإنترنت.'},
+  {id:99, lec:'lec5', text:'خطوة التخطيط تشمل وضع خريطة للموقع ومخطط تفصيلي لمراحل التصميم.', answer:true, explain:'صحيح. خطوة التخطيط تترجم التحليل والأهداف إلى مخطط تفصيلي يشمل خريطة الموقع ومراحل التصميم وكيفية التنفيذ.'},
+  {id:100, lec:'lec5', text:'نجاح الموقع الإلكتروني يعتمد فقط على التصميم الجمالي دون أهمية للمحتوى.', answer:false, explain:'خطأ. نجاح الموقع يعتمد على التكامل بين التصميم الجمالي والمحتوى القيّم وسهولة الاستخدام وتجربة المستخدم — والمحتوى يُعدّ الملك في الفضاء الرقمي.'}
+];
+
+function renderQuestions(filter) {
+  const grid = document.getElementById('quiz-grid');
+  const filtered = filter === 'all' ? questions : questions.filter(q => q.lec === filter);
+  grid.innerHTML = filtered.map(q => `
+    <div class="q-item ${q.answer ? 'q-true' : 'q-false'}" data-lec="${q.lec}">
+      <div class="q-header" onclick="toggleAnswer(this)">
+        <div class="q-num">${q.id}</div>
+        <div class="q-text">${q.text}</div>
+        <button class="q-toggle" aria-label="إظهار الإجابة">▼</button>
+      </div>
+      <div class="q-answer">
+        <div class="verdict">${q.answer ? '✓ صحيح' : '✗ خطأ'}</div>
+        <div class="explain">${q.explain}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleAnswer(header) {
+  const answer = header.nextElementSibling;
+  const btn = header.querySelector('.q-toggle');
+  answer.classList.toggle('show');
+  btn.classList.toggle('open');
+}
+
+function filterQ(filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderQuestions(filter);
+}
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Init
+renderQuestions('all');
+document.getElementById('true-q').textContent = questions.filter(q => q.answer).length;
+document.getElementById('false-q').textContent = questions.filter(q => !q.answer).length;
+</script>
+</body>
+</html>
